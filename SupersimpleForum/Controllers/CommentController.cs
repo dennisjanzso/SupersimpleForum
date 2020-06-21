@@ -15,13 +15,6 @@ namespace SupersimpleForum.Controllers
     [Route("[controller]")]
     public class CommentController : ControllerBase
     {
-        private static string _connStr = @"
-              Server=127.0.0.1,1433;
-              Database=Master;
-              User Id=SA;
-              Password=increoNETapp2020
-           ";
-        
         // GET by post
         [HttpGet("{parent_id}/{sub}")]
         public List<Dictionary<string, string>> get(string parent_id, string sub)
@@ -30,7 +23,7 @@ namespace SupersimpleForum.Controllers
 
             string query = "select * from comments where parent_id = @pid and is_subComment = @sub";
 
-            var con = new SqlConnection(_connStr);
+            var con = new SqlConnection(Program._connStr);
             var cmd = new SqlCommand(query, con);
             cmd.Parameters.AddWithValue("@pid", parent_id);
             cmd.Parameters.AddWithValue("@sub", sub);
@@ -59,7 +52,7 @@ namespace SupersimpleForum.Controllers
 
                 string query = "insert into comments values (@author, @text, @parent_id, @is_subComment)";
 
-                var con = new SqlConnection(_connStr);
+                var con = new SqlConnection(Program._connStr);
                 var cmd = new SqlCommand(query, con);
                 cmd.Parameters.AddWithValue("@author", comment.author);
                 cmd.Parameters.AddWithValue("@text", comment.text);

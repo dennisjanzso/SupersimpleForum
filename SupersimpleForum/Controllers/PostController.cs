@@ -15,14 +15,6 @@ namespace SupersimpleForum.Controllers
     [Route("[controller]")]
     public class PostsController : ControllerBase
     {
-        
-        private static string _connStr = @"
-              Server=127.0.0.1,1433;
-              Database=Master;
-              User Id=SA;
-              Password=increoNETapp2020
-           ";
-        
         // GET
         [HttpGet]
         public List<Dictionary<string, string>> get()
@@ -31,7 +23,7 @@ namespace SupersimpleForum.Controllers
 
             string query = "select * from posts";
 
-            var con = new SqlConnection(_connStr);
+            var con = new SqlConnection(Program._connStr);
             var cmd = new SqlCommand(query, con);
             using (var da = new SqlDataAdapter(cmd))
             {
@@ -56,7 +48,7 @@ namespace SupersimpleForum.Controllers
 
             string query = "select * from posts where post_id = @pid";
 
-            var con = new SqlConnection(_connStr);
+            var con = new SqlConnection(Program._connStr);
             var cmd = new SqlCommand(query, con);
             cmd.Parameters.AddWithValue("@pid", post_id);
             using (var da = new SqlDataAdapter(cmd))
@@ -97,7 +89,7 @@ namespace SupersimpleForum.Controllers
 
                 string query = "insert into posts values (@title, @text, @author)";
 
-                var con = new SqlConnection(_connStr);
+                var con = new SqlConnection(Program._connStr);
                 var cmd = new SqlCommand(query, con);
                 cmd.Parameters.AddWithValue("@title", post.title);
                 cmd.Parameters.AddWithValue("@text", post.text);
@@ -124,7 +116,7 @@ namespace SupersimpleForum.Controllers
 
                 string query = "delete from posts where post_id = @pid";
 
-                var con = new SqlConnection(_connStr);
+                var con = new SqlConnection(Program._connStr);
                 var cmd = new SqlCommand(query, con);
                 cmd.Parameters.AddWithValue("@pid", post.post_id);
                 using (var da = new SqlDataAdapter(cmd))

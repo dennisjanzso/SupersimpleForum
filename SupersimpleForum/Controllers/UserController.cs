@@ -16,14 +16,6 @@ namespace SupersimpleForum.Controllers
     [Route("[controller]")]
     public class UserController : ControllerBase
     {
-        
-        private static string _connStr = @"
-              Server=127.0.0.1,1433;
-              Database=Master;
-              User Id=SA;
-              Password=increoNETapp2020
-           ";
-
         [HttpPost]
         public Tuple<Boolean, string> post([FromBody] User user)
         {
@@ -50,7 +42,7 @@ namespace SupersimpleForum.Controllers
 
                 string query = "select * from users where username = @uname";
 
-                var con = new SqlConnection(_connStr);
+                var con = new SqlConnection(Program._connStr);
                 var cmd = new SqlCommand(query, con);
                 cmd.Parameters.AddWithValue("@uname", user.username);
                 using (var da = new SqlDataAdapter(cmd))
@@ -87,7 +79,7 @@ namespace SupersimpleForum.Controllers
 
                 string query = "insert into users values (@username, @password, @salt)";
 
-                var con = new SqlConnection(_connStr);
+                var con = new SqlConnection(Program._connStr);
                 var cmd = new SqlCommand(query, con);
                 cmd.Parameters.AddWithValue("@username", user.username);
                 cmd.Parameters.AddWithValue("@password", hashedPass);

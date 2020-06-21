@@ -13,7 +13,7 @@ namespace SupersimpleForum
     public class Program
     {
         
-        private static string _connStr = @"
+        public static string _connStr = @"
               Server=127.0.0.1,1433;
               Database=Master;
               User Id=SA;
