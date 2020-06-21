@@ -1,7 +1,5 @@
 # SupersimpleForum
 
-<h1>Supersimple Forum</h1>
-
 Code runs with .NET core v3.1
 
 To set up database:
